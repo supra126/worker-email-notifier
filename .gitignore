@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Cloudflare Wrangler
+.wrangler/
+.dev.vars
+wrangler.toml
+
+# Temporary files
+.temp/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
+.temp/

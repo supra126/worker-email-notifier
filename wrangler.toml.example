@@ -1,0 +1,92 @@
+name = "email-notifier"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# ============================================
+# Multi-platform email configuration
+# 多平台寄件設定
+# --------------------------------------------
+# Each platform has independent sender and recipient whitelist
+# 每個平台有獨立的寄件者和收件人白名單
+# ============================================
+
+# Platform A's recipient whitelist (can be any domain)
+# 平台 A 的收件人白名單（可以是任何域名）
+[[send_email]]
+name = "MAILER_A"
+allowed_destination_addresses = [
+  "boss@gmail.com",
+  "admin@company.com",
+  "alerts@slack.com"
+]
+
+# Platform B's recipient whitelist
+# 平台 B 的收件人白名單
+[[send_email]]
+name = "MAILER_B"
+allowed_destination_addresses = [
+  "dev-team@gmail.com",
+  "ops@pagerduty.com",
+  "support@external-partner.com"
+]
+
+# Add more [[send_email]] blocks for additional platforms
+# 如需更多平台，繼續新增 [[send_email]] 區塊
+
+# ============================================
+# Platform configuration (native TOML)
+# 平台設定（原生 TOML 格式）
+# --------------------------------------------
+# senderEmail must be a domain with Cloudflare Email Routing enabled
+# senderEmail 必須是你在 Cloudflare 啟用 Email Routing 的域名
+# --------------------------------------------
+# allowed_destination_addresses can be any domain, but must be verified in Email Routing
+# allowed_destination_addresses 可以是任何域名，但須在 Email Routing 中通過驗證
+# ============================================
+
+[vars.PLATFORMS.platform-a]
+senderEmail = "noreply@your-domain.com"
+senderName = "Platform A Notifications"
+mailer = "MAILER_A"
+
+[vars.PLATFORMS.platform-b]
+senderEmail = "noreply@your-domain.com"
+senderName = "Platform B Notifications"
+mailer = "MAILER_B"
+
+# CORS origin settings (optional)
+# CORS 來源設定（選填）
+# --------------------------------------------
+# Single domain / 單一域名: CORS_ORIGIN = "https://yourdomain.com"
+# Multiple domains / 多個域名: CORS_ORIGINS = "https://a.com,https://b.com"
+
+# ============================================
+# API Key configuration
+# API Key 設定
+# ============================================
+# Generate a secure API Key / 產生安全的 API Key:
+#   npm run generate-key
+#
+# Option 1: Shared API Key (all platforms)
+# 方式一：共用 API Key（所有平台共用）
+#   wrangler secret put API_KEY
+#
+# Option 2: Platform-specific API Keys (JSON format)
+# 方式二：各平台獨立 API Key（JSON 格式）
+#   wrangler secret put API_KEYS
+#   Format / 格式: {"platform-a": "key-for-a", "platform-b": "key-for-b"}
+#
+# Both can be set. System checks platform-specific key first, then shared key.
+# 兩者可同時設定，系統會先檢查平台專屬 Key，再檢查共用 Key
+
+# ============================================
+# Rate limiting
+# 速率限制
+# ============================================
+# For rate limiting, configure in Cloudflare Dashboard:
+# 如需速率限制，請在 Cloudflare Dashboard 設定：
+# Security > WAF > Rate limiting rules
+#
+# This approach is simpler and more powerful
+# 這樣設定更簡單且功能更強大

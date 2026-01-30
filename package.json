@@ -1,0 +1,40 @@
+{
+  "name": "worker-email-notifier",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Cloudflare Worker for sending email notifications via RESTful API with multi-platform support",
+  "author": "黃小黃 (https://github.com/supra126)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supra126/worker-email-notifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/supra126/worker-email-notifier/issues"
+  },
+  "homepage": "https://github.com/supra126/worker-email-notifier#readme",
+  "main": "src/index.js",
+  "scripts": {
+    "generate-key": "node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\"",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "email",
+    "notification",
+    "api",
+    "email-routing",
+    "serverless"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "mimetext": "^3.0.28"
+  },
+  "devDependencies": {
+    "wrangler": "^4.61.1"
+  }
+}
